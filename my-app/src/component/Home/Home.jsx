@@ -1,9 +1,17 @@
 import React from "react";
-import styles from '../../style/Home.module.css';
+import Poster from "../Poster/Poster";
+import Products from "../Product/Products";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+
+    const { list } = useSelector(( {products }) => products);
+
     return(
-        <h1>Home</h1>
+        <>
+            <Poster />
+            <Products products={list} amount={5} title="Trending"/>
+        </>
     )
 }
 

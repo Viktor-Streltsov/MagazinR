@@ -6,6 +6,7 @@ import Header from '../component/Header/Header';
 import AppRoutes from '../component/Routes/Routes';
 import Sidebar from '../component/Sidebar/Sidebar';
 import { getCategories } from '../features/categories/categoriesSlise';
+import { getProducts } from '../features/products/products';
 
 function App() {
 
@@ -13,10 +14,11 @@ function App() {
 
     useEffect(() => {
         dispatch(getCategories());
+        dispatch(getProducts());
     },[dispatch]);
 
   return (
-    <div className="App">
+    <div className="app">
         <Header/>
 
         <div className="container">
