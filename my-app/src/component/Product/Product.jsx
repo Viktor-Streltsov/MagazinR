@@ -7,7 +7,6 @@ import {addItemToCart} from "../../features/user/userSlice";
 
 const SIZE = [23, 4.6, 12];
 
-
 export const Product = (item) => {
 
     const {title, images, price, description } = item;

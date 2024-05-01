@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 
 import Footer from '../component/Footer/Footer';
 import Header from '../component/Header/Header';
 import AppRoutes from '../component/Routes/Routes';
 import Sidebar from '../component/Sidebar/Sidebar';
-import { getCategories } from '../features/categories/categoriesSlise';
-import { getProducts } from '../features/products/productsSlise';
+import {getCategories} from '../features/categories/categoriesSlise';
+import {getProducts} from '../features/products/productsSlise';
+import UserForm from "../component/User/UserForm";
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
   return (
     <div className="app">
         <Header/>
+
+        <UserForm/>
 
         <div className="container">
             <Sidebar/>

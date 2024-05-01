@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { BASE_URL } from '../../utils/constanstans';
-import {suffle} from "../../utils/common";
+import {shuffle} from "../../utils/common";
 
 export const getProducts = createAsyncThunk(
     'products/getproducts', async(_, thunkAPI) => {
@@ -29,7 +29,7 @@ const productsSlice = createSlice({
         },
         getRelatedProducts: (state, {payload}) => {
             const list = state.list.filter(({category: {id}}) => id === payload);
-            state.related = suffle(list);
+            state.related = shuffle(list);
         }
     },
     extraReducers: (builder) => {

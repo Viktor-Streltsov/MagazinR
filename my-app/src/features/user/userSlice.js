@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { BASE_URL } from '../../utils/constanstans';
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
+import {BASE_URL} from '../../utils/constanstans';
 
 export const createUser = createAsyncThunk(
-    'categories/getCategories', async(_, thunkAPI) => {
+    'users/createUser', async (payload, thunkAPI) => {
         try {
-            const res = await axios(`${BASE_URL}/categories`);
+            const res = await axios.post(`${BASE_URL}/users`, payload);
             return res.data;
         }catch(err) {
             console.log(err);
@@ -14,12 +14,46 @@ export const createUser = createAsyncThunk(
         }
     })
 
+export const loginUser = createAsyncThunk(
+    'users/loginUser', async (payload, thunkAPI) => {
+        try {
+            const res = await axios.post(`${BASE_URL}/auth/login`, payload);
+            const login = await axios(`${BASE_URL}/auth/profile`, {
+                headers: {
+                    'Authorization': `Bearer ${res.data.access_token}`
+                }
+            });
+
+            return login.data;
+        } catch (err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    })
+
+export const upDateUser = createAsyncThunk(
+    'users/upDateUser', async (payload, thunkAPI) => {
+        try {
+            const res = await axios.put(`${BASE_URL}/users/${payload.id}`, payload);
+            return res.data;
+        }catch(err) {
+            console.log(err);
+            return thunkAPI.rejectWithValue(err);
+        }
+    })
+
+const addCurrentUser = (state, {payload}) => {
+    state.currentUser = payload;
+}
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        currentUser: [],
+        currentUser: null,
         cart: [],
         isLoading: false,
+        formType: 'signup',
+        showForm: false
     },
     reducers: {
         addItemToCart: (state, {payload}) => {
@@ -36,6 +70,12 @@ const userSlice = createSlice({
 
             state.cart = newCart;
         },
+        toggleForm: (state, {payload}) => {
+            state.showForm = payload;
+        },
+        toggleFormType: (state, {payload}) => {
+            state.formType = payload;
+        },
     },
     extraReducers: (builder) => {
 
@@ -47,10 +87,11 @@ const userSlice = createSlice({
         //
         // // TODO После вывод данных
         //
-        // builder.addCase(getCategories.fulfilled, (state, { payload }) => {
-        //     state.list = payload;
-        //     state.isLoading = false;
-        // });
+        builder.addCase(createUser.fulfilled, addCurrentUser);
+
+        builder.addCase(loginUser.fulfilled, addCurrentUser);
+
+        builder.addCase(upDateUser.fulfilled, addCurrentUser);
         //
         // // TODO Вывод ошибок (если они есть)
         //
@@ -61,5 +102,5 @@ const userSlice = createSlice({
 });
 
 
-export const { addItemToCart } = userSlice.actions;
+export const {addItemToCart, toggleForm, toggleFormType} = userSlice.actions;
 export default userSlice.reducer;
