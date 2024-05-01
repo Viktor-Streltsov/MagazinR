@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { BASE_URL } from '../../utils/constanstans';
 
 export const getCategories = createAsyncThunk(
-    'cotegories/getCategories', async(_, thunkAPI) => {
+    'categories/getCategories', async(_, thunkAPI) => {
     try {
         const res = await axios(`${BASE_URL}/categories`);
         return res.data;
@@ -21,13 +21,22 @@ const categoriesSlice = createSlice({
         isLoading: false,
     },
     extraReducers: (builder) => {
+
+        // TODO При ожидании появляется isLoading
+
         builder.addCase(getCategories.pending, (state) => {
             state.isLoading = true;
         });
+
+        // TODO После вывод данных
+
         builder.addCase(getCategories.fulfilled, (state, { payload }) => {
             state.list = payload;
             state.isLoading = false;
         });
+
+        // TODO Вывод ошибок (если они есть)
+
         builder.addCase(getCategories.rejected, (state) => {
             state.isLoading = false;
         });

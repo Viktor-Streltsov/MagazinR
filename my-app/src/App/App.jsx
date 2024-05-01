@@ -6,7 +6,7 @@ import Header from '../component/Header/Header';
 import AppRoutes from '../component/Routes/Routes';
 import Sidebar from '../component/Sidebar/Sidebar';
 import { getCategories } from '../features/categories/categoriesSlise';
-import { getProducts } from '../features/products/products';
+import { getProducts } from '../features/products/productsSlise';
 
 function App() {
 
