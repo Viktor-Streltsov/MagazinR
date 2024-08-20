@@ -5,15 +5,14 @@ import LOGO from "../../images/logo.svg";
 import AVATAR from "../../images/avatar.jpg";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleForm} from "../../features/user/userSlice";
-import styles from '../../style/Header.module.css';
 import {useGetProductsQuery} from "../../features/api/apiSlice";
-
+import styles from '../../style/Header.module.css';
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState('');
-    const { currentUser } = useSelector(({user}) => user);
+    const {currentUser, cart} = useSelector(({user}) => user);
 
     const [values, setValues] = useState({
         name: 'My name',
@@ -21,8 +20,6 @@ const Header = () => {
     });
 
     const {data, isLoading} = useGetProductsQuery({title: searchValue});
-
-    console.log(data)
 
     useEffect(() => {
         if(!currentUser) return;
@@ -52,7 +49,6 @@ const Header = () => {
                     <div className={styles.avatar} style={{backgroundImage: `url(${values.avatar})`}}/>
                     <div className={styles.username}>{values.name}</div>
                 </div>
-
 
                 <form className={styles.form}>
                     <div className={styles.icon}>
@@ -100,10 +96,11 @@ const Header = () => {
                         <svg className={styles["icon-cart"]}>
                             <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`}/>
                         </svg>
-                        <span className={styles.count}>2</span>
+                        {!!cart.length && (
+                            <span className={styles.count}>{cart.length}</span>
+                        )}
                     </Link>
                 </div>
-
             </div>
         </div>
     )
