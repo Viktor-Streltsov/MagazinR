@@ -6,26 +6,26 @@ import {useSelector} from "react-redux";
 
 import styles from '../../style/Category.module.css';
 
+const DEFAULT_VALUES = {
+    title: "",
+    price_min: 0,
+    price_max: 0,
+};
+
 const Category = () => {
     const {id} = useParams();
     const {list} = useSelector(({categories}) => categories);
-
-    const defaultValues = {
-        title: "",
-        price_min: 0,
-        price_max: 0,
-    };
 
     const defaultParams = {
         categoryId: id,
         limit: 5,
         offset: 0,
-        ...defaultValues,
+        ...DEFAULT_VALUES,
     };
 
     const [params, setParams] = useState(defaultParams);
     const [isEnd, setIsEnd] = useState(false);
-    const [values, setValues] = useState(defaultValues);
+    const [values, setValues] = useState(DEFAULT_VALUES);
     const [items, setItems] = useState([]);
     const [cat, setCat] = useState(null);
 
@@ -51,11 +51,15 @@ const Category = () => {
     useEffect(() => {
         if (!id) return;
 
-        setValues(defaultValues);
+        setValues(DEFAULT_VALUES);
         setItems([]);
         setIsEnd(false);
-        setParams({...defaultParams, categoryId: id})
-
+        setParams({
+            categoryId: id,
+            limit: 5,
+            offset: 0,
+            ...DEFAULT_VALUES,
+        });
     }, [id]);
 
     const handleChange = ({target: {value, name}}) => {
@@ -63,7 +67,7 @@ const Category = () => {
     }
 
     const handleReset = () => {
-        setValues(defaultValues);
+        setValues(DEFAULT_VALUES);
         setParams(defaultParams);
         setIsEnd(false);
     }

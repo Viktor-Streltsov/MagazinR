@@ -19,7 +19,7 @@ const SingleProducts = () => {
         if (!isFetching && !isLoading && !isSuccess) {
             navigate(ROUTES.HOME);
         }
-    },[isLoading, isFetching, isSuccess]);
+    }, [isLoading, isFetching, isSuccess, navigate]);
 
     useEffect(() => {
         if(!data || !list.length) return

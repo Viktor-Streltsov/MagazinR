@@ -15,11 +15,11 @@ const Footer = () => {
 
             <div className={styles.rights}>
                 Developer by {""}
-                <a href="">My mag.</a>
+                <Link to={ROUTES.HOME}>My mag.</Link>
             </div>
 
             <div className={styles.socials}>
-                <a href=""
+                <a href="https://www.instagram.com/"
                    target="_blank"
                    rel="noreferrer"
                 >
@@ -27,7 +27,7 @@ const Footer = () => {
                         <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#instagram`}/>
                     </svg>
                 </a>
-                <a href=""
+                <a href="https://www.youtube.com/"
                    target="_blank"
                    rel="noreferrer"
                 >
@@ -35,7 +35,7 @@ const Footer = () => {
                         <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#youtube`}/>
                     </svg>
                 </a>
-                <a href=""
+                <a href="https://www.facebook.com/"
                    target="_blank"
                    rel="noreferrer"
                 >
