@@ -2,6 +2,7 @@ import React from "react";
 import styles from '../../style/Sidebar.module.css';
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ROUTES } from "../../utils/routes";
 
 const Sidebar = () => {
 
@@ -11,7 +12,7 @@ const Sidebar = () => {
     return(
         <section className={styles.sidebar}>
             <div className={styles.title}>CATEGORIES</div>
-            <nav>
+            <nav className={styles.navMenu}>
                 <ul className={styles.menu}>
                     {list.map(({id, name}) => (
                         <li key={id}>
@@ -23,8 +24,22 @@ const Sidebar = () => {
                 </ul>
             </nav>
             <div className={styles.footer}>
-                <a href={'/help'} target="_black" className={styles.link}>Help</a>
-                <a href={'/terms'} target="_black" className={styles.link} style={{textDecoration: 'underline'}}>Terms & Condition</a>
+                <NavLink
+                    to={ROUTES.HELP}
+                    className={({ isActive }) =>
+                        `${styles.link} ${isActive ? styles.active : ""}`
+                    }
+                >
+                    Help
+                </NavLink>
+                <NavLink
+                    to={ROUTES.TERMS}
+                    className={({ isActive }) =>
+                        `${styles.link} ${styles.linkUnderline} ${isActive ? styles.active : ""}`
+                    }
+                >
+                    Terms & Condition
+                </NavLink>
             </div>
         </section>
     )
